@@ -149,12 +149,14 @@
           maxDate: '=',
           disabledDates: '=',
           weekStartsOn: '=',
+          selected: '='
         },
 
         link: function(scope, element, attrs, ngModel)  {
           var noExtraRows   = attrs.hasOwnProperty('noExtraRows'),
               allowMultiple = attrs.hasOwnProperty('multiple'),
               weekStartsOn  = scope.weekStartsOn,
+              selected = scope.selected,
               selectedDates = [],
               wantsModal    = element[0] instanceof HTMLInputElement,
               compiledHtml  = $compile(TEMPLATE)(scope),
@@ -172,6 +174,7 @@
             selectedDates = allowMultiple ? toggleDate(dateObj.date, selectedDates) : [dateObj.date];
             setViewValue(selectedDates);
             scope.displayPicker = !wantsModal;
+            selected(selectedDates);
           };
 
           var $render = ngModel.$render = function(options) {
